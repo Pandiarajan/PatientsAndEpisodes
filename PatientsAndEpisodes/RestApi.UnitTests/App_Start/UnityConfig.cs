@@ -1,8 +1,7 @@
 using RestApi.Controllers;
 using RestApi.Interfaces;
-using RestApi.Models;
+using RestApi.UnitTests.App_Start;
 using System;
-
 using Unity;
 
 namespace RestApi.UnitTests
@@ -45,16 +44,8 @@ namespace RestApi.UnitTests
 
             // TODO: Register your type's mappings here.
             // container.RegisterType<IProductRepository, ProductRepository>();
-            container.RegisterSingleton<IDatabaseContext, InMemoryPatientContext>();
-            InitializeInMemoryData(container);
+            container.RegisterSingleton<IDatabaseContext, TestInMemoryPatientContext>();
             container.RegisterType<PatientsController, PatientsController>();
-        }
-
-        private static void InitializeInMemoryData(IUnityContainer container)
-        {
-            var context = container.Resolve<IDatabaseContext>();
-            Loader.LoadPatients(context);
-            Loader.LoadEpisode(context);
         }
     }
 }
